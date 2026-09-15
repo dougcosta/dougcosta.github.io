@@ -1,0 +1,46 @@
+:root {
+	color-scheme: light dark;
+	--paper: #fbfbfa;
+	--paper-subtle: #f2f3f4;
+	--neutral-950: #17191c;
+	--neutral-600: #59616b;
+	--neutral-500: #737b84;
+	--night: #111417;
+	--night-raised: #1a1f24;
+	--blue: #174a7e;
+	--blue-light: #78aee5;
+	--color-bg: light-dark(var(--paper), var(--night));
+	--color-bg-subtle: light-dark(var(--paper-subtle), var(--night-raised));
+	--color-fg: light-dark(var(--neutral-950), #f1f3f5);
+	--color-fg-muted: light-dark(var(--neutral-600), #b7c0c9);
+	--color-fg-faint: light-dark(var(--neutral-500), #929da8);
+	--color-rule: light-dark(rgba(23, 25, 28, .15), rgba(241, 243, 245, .16));
+	--color-accent: light-dark(var(--blue), var(--blue-light));
+	--color-accent-fg: #fff;
+	/* Typography stays deliberately small: editorial reading, quiet interface, code. */
+	--font-editorial: 'Newsreader', Georgia, serif;
+	--font-interface: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+	--font-code: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+	--text-xs: .72rem;
+	--text-sm: .875rem;
+	--text-base: 1rem;
+	--text-md: 1.125rem;
+	--text-lg: 1.35rem;
+	--text-xl: clamp(1.75rem, 3.5vw, 2.5rem);
+	--text-2xl: clamp(2.5rem, 5vw, 4.25rem);
+	--space-2: .5rem;
+	--space-3: .75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+	--space-24: 6rem;
+	--gutter: clamp(1.25rem, 5vw, 3rem);
+	--width-wide: 72rem;
+	--width-prose: 42rem;
+	--radius: 2px;
+}
+
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] { color-scheme: dark; }

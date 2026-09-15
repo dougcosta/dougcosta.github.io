@@ -1,18 +1,19 @@
 ---
-import { SITE_TITLE } from '../consts';
-
-const today = new Date();
+import { AUTHOR, SITE, SOCIAL } from '../consts';
+const year = new Date().getFullYear();
 ---
 
-<footer>
-	&copy; {today.getFullYear()} {SITE_TITLE}. All rights reserved.
+<footer class="site-footer">
+	<div class="wrap">
+		<p>{SITE.tagline}</p>
+		<ul>{SOCIAL.map((link) => <li><a href={link.href} rel="noopener">{link.label}</a></li>)}<li><a href="/rss.xml">RSS</a></li></ul>
+		<p>© {year} <a href={AUTHOR.url}>{AUTHOR.name}</a></p>
+	</div>
 </footer>
 
 <style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
+	.site-footer { margin-top: var(--space-24); border-top: 1px solid var(--color-rule); }
+	.wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4) var(--space-8); padding-block: var(--space-8); color: var(--color-fg-faint); font-family: var(--font-interface); font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; }
+	ul { display: flex; gap: var(--space-6); padding: 0; list-style: none; }
+	a { text-decoration: none; }
 </style>

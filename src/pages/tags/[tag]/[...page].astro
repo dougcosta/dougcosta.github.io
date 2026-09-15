@@ -1,0 +1,18 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import PostCard from '../../../components/PostCard.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { BLOG } from '../../../consts';
+import { collectTags, getPublishedPosts, postsByTag, type Post } from '../../../utils/posts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = await getPublishedPosts();
+	return collectTags(posts).flatMap((tag) => paginate(postsByTag(posts, tag.slug), { params: { tag: tag.slug }, pageSize: BLOG.postsPerPage, props: { tagName: tag.name } }));
+}) satisfies GetStaticPaths;
+const { page, tagName } = Astro.props as { page: Page<Post>; tagName: string };
+---
+<Layout title={`Tópico: ${tagName}`} description={`Artigos sobre ${tagName}.`}>
+	<div class="wrap"><PageHeader eyebrow="Tópico" title={tagName} lede={`${page.total} ${page.total === 1 ? 'artigo' : 'artigos'} neste tópico.`}><p class="back"><a href="/tags/">← Todos os tópicos</a></p></PageHeader><section class="post-list">{page.data.map((post) => <PostCard post={post} />)}</section></div>
+</Layout>
+<style>.back { margin-top: var(--space-6); } .post-list { margin-top: var(--space-4); }</style>

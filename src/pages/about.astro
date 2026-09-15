@@ -1,10 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
 ---
 
-<Layout
-	title="About"
-	description="About Doug Costa"
->
-	<h1>About</h1>
+<Layout title="Sobre" description="Sobre Doug Costa">
+	<div class="wrap about">
+		<PageHeader eyebrow="Sobre" title="Doug Costa" lede="Liderança, engenharia de software, tecnologia e aprendizado contínuo." />
+		<div class="body">
+			<p>Escrevo sobre a prática de construir software: decisões técnicas, arquitetura, times, liderança, tecnologia e o hábito do aprendizado contínuo.</p>
+			<p>Este é um espaço pessoal, calmo e duradouro para ideias que merecem mais do que uma leitura apressada.</p>
+		</div>
+	</div>
 </Layout>
+
+<style>
+	.about { max-width: calc(var(--width-wide) + (var(--gutter) * 2)); }
+	.body { max-width: var(--width-prose); padding-top: var(--space-12); font-size: var(--text-md); line-height: 1.8; }
+	.body p + p { margin-top: var(--space-6); }
+</style>

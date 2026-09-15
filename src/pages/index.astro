@@ -1,20 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { SITE_DESCRIPTION } from '../consts';
+import PostCard from '../components/PostCard.astro';
+import { BLOG, SITE } from '../consts';
+import { getPublishedPosts } from '../utils/posts';
+const posts = (await getPublishedPosts()).slice(0, BLOG.postsOnHome);
 ---
 
-<Layout
-	title="Doug Costa"
-	description={SITE_DESCRIPTION}
->
-	<h1>Doug Costa</h1>
-
-	<p>
-		Leadership, Software Engineering, Technology & Learning.
-	</p>
-
-	<p>
-		Welcome to my personal space where I write about software engineering,
-		technology, architecture, AI, leadership and continuous learning.
-	</p>
+<Layout description={SITE.description}>
+	<section class="hero wrap">
+		<p class="eyebrow">Notas pessoais</p>
+		<h1>Doug Costa</h1>
+		<p class="lede">{SITE.tagline}</p>
+		<p class="intro">Meu espaço pessoal para escrever sobre engenharia de software, arquitetura, tecnologia, IA, liderança e aprendizado contínuo.</p>
+		<a class="cta" href="/blog/">Ler o blog →</a>
+	</section>
+	<section class="latest wrap">
+		<div class="latest__head"><h2>Últimos textos</h2><a href="/blog/">Todos os posts →</a></div>
+		{posts.length ? posts.map((post) => <PostCard post={post} />) : <p class="empty">Os artigos aparecerão aqui à medida que forem publicados.</p>}
+	</section>
 </Layout>
+
+<style>
+	.hero { max-width: var(--width-wide); padding-top: clamp(var(--space-16), 14vw, 10rem); padding-bottom: var(--space-24); }
+	h1 { margin-top: var(--space-4); font-size: var(--text-2xl); }
+	.hero .lede { margin-top: var(--space-6); }
+	.intro { max-width: 38rem; margin-top: var(--space-6); color: var(--color-fg-muted); font-size: var(--text-md); }
+	.cta { display: inline-block; margin-top: var(--space-8); padding: var(--space-3) var(--space-6); border: 1px solid var(--color-accent); color: var(--color-accent); font-family: var(--font-interface); font-size: var(--text-xs); font-weight: 600; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+	.cta:hover { background: var(--color-accent); color: var(--color-accent-fg); }
+	.latest { padding-bottom: var(--space-12); }
+	.latest__head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-rule); }
+	.latest__head h2 { font-size: var(--text-xl); }
+	.latest__head a { font-family: var(--font-interface); font-size: var(--text-xs); font-weight: 500; text-decoration: none; text-transform: uppercase; }
+	.empty { padding-block: var(--space-12); color: var(--color-fg-muted); }
+</style>

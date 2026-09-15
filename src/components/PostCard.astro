@@ -1,0 +1,29 @@
+---
+import { BLOG } from '../consts';
+import { formatDate } from '../utils/date';
+import { readingTime } from '../utils/reading-time';
+import { tagSlug, type Post } from '../utils/posts';
+interface Props { post: Post; }
+const { post } = Astro.props;
+const { title, description, pubDate, tags } = post.data;
+---
+
+<article class="post-card">
+	<p class="post-card__date label"><time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time></p>
+	<div>
+		<h2><a href={`/blog/${post.id}/`}>{title}</a></h2>
+		<p class="post-card__description">{description}</p>
+		<p class="post-card__meta label">{tags.map((tag) => <a href={`/tags/${tagSlug(tag)}/`}>#{tag}</a>)} {BLOG.showReadingTime && <span>{readingTime(post.body)} min de leitura</span>}</p>
+	</div>
+</article>
+
+<style>
+	.post-card { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--space-6); padding-block: var(--space-8); border-bottom: 1px solid var(--color-rule); }
+	h2 { font-size: var(--text-lg); }
+	h2 a { text-decoration: none; }
+	.post-card__description { margin-top: var(--space-3); color: var(--color-fg-muted); font-size: var(--text-sm); }
+	.post-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-4); font-family: var(--font-interface); }
+	.post-card__meta a { text-decoration: none; }
+	.post-card__meta span { margin-left: auto; }
+	@media (max-width: 38rem) { .post-card { grid-template-columns: 1fr; gap: var(--space-3); } .post-card__meta span { margin-left: 0; } }
+</style>

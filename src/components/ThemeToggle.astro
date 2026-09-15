@@ -1,0 +1,18 @@
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Alternar para tema escuro"><span aria-hidden="true"></span></button>
+<script is:inline>
+	(() => {
+		const root = document.documentElement, button = document.querySelector('[data-theme-toggle]');
+		if (!button) return;
+		const media = window.matchMedia('(prefers-color-scheme: dark)');
+		const current = () => root.dataset.theme || (media.matches ? 'dark' : 'light');
+		const label = () => button.setAttribute('aria-label', `Alternar para tema ${current() === 'dark' ? 'claro' : 'escuro'}`);
+		button.addEventListener('click', () => { root.dataset.theme = current() === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('doug-theme', root.dataset.theme); } catch {} label(); });
+		media.addEventListener('change', label); label();
+	})();
+</script>
+<style>
+	.theme-toggle { display: grid; place-items: center; width: 2rem; height: 2rem; color: var(--color-fg-muted); background: transparent; border: 0; cursor: pointer; }
+	.theme-toggle:hover { color: var(--color-accent); }
+	.theme-toggle span { position: relative; width: .9rem; height: .9rem; overflow: hidden; border: 1px solid currentColor; border-radius: 50%; }
+	.theme-toggle span::after { content: ''; position: absolute; inset-block: 0; left: 0; width: 50%; background: currentColor; }
+</style>

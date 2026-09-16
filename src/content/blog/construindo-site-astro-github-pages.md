@@ -51,7 +51,7 @@ git --version
 
 Caso algum dos pré-requisitos não esteja instalado, podemos fazer a instalação antes de continuar.
 
-Neste artigo, estou utilizando um MacBook e o Homebrew para fazer as instalações.
+Eu estou utilizando um MacBook e o Homebrew para fazer as instalações. Portanto, os comandos apresentados neste artigo consideram esse ambiente, mas podem ser adaptados para outros sistemas operacionais.
 
 Primeiro, vamos instalar o NVM, que nos permitirá alternar entre versões do Node sem gerar conflitos em projetos diferentes. Por exemplo:
 ```text
@@ -65,13 +65,13 @@ Para instalar o NVM:
 brew install nvm
 ```
 
-Eu utilizo o Z shell (zsh) para interpretar comandos no meu Terminal. Então, é necessário realizar a configuração para que ele interprete adequadamente os comandos do NVM.
+Eu utilizo o Z shell (zsh) para interpretar comandos no meu Terminal. Então, é necessário realizar a configuração para que ele interprete adequadamente os comandos do NVM. Esses passos não são necessários em ambientes que não utilizam o Z shell e podem ser desconsiderados.
 O primeiro passo é criar o diretório do NVM:
 ```bash
 mkdir -p ~/.nvm
 ```
 
-No meu caso, utilizando um MacBook com Apple Silicon, o caminho do Homebrew é `/opt/homebrew/opt/nvm/`. É necessário conferir o caminho que está em sua máquina e alterá-lo adequadamente.
+No meu caso, utilizando um MacBook com Apple Silicon, o caminho do Homebrew é `/opt/homebrew/opt/nvm/`. Antes de executar o próximo comando, é necessário conferir o caminho que está em sua máquina e alterá-lo adequadamente.
 
 Adicionamos o NVM ao arquivo `.zshrc`, executando esse comando inteiro:
 ```bash
@@ -158,22 +158,35 @@ npm create astro@latest
 
 O Astro inicia um assistente interativo para configurar o novo projeto.
 
-Entre as opções disponíveis estão diferentes tipos de projeto, incluindo um projeto inicial básico, um template de blog, um template de documentação baseado no Starlight e um projeto mínimo. Em algum momento, ele solicitará que o tipo seja escolhido apresentando algo como: 
+Entre as opções disponíveis estão diferentes tipos de projeto, incluindo um projeto inicial básico, um template de blog, um template de documentação baseado no Starlight e um projeto mínimo. Em algum momento, ele solicitará que escolhamos o tipo de projeto, apresentando algo como:
 ```text
 How would you like to start your new project?
-         ● A basic, helpful starter project (recommended)
-         ○ Use blog template 
+         ○ A basic, helpful starter project (recommended)
+         ● Use blog template 
          ○ Use docs (Starlight) template 
          ○ Use minimal (empty) template
 ``` 
 
-Para este exemplo, escolhi o **Use blog template**, pois ele já fornece uma estrutura inicial adequada para um site baseado em conteúdo.
+Nossa escolha será o **Use blog template**, pois ele já fornece uma estrutura inicial adequada para um site baseado em conteúdo.
 
-Depois de concluir o assistente, entramos no diretório que escolhemos para o projeto. No meu caso, criei o diretório chamado `blog`. Então:
+Em seguida, o assistente perguntará se deve instalar as dependências. Para o passo a passo deste artigo, escolha **não**:
+```text
+Install dependencies? (recommended)
+         ○ Yes  ● No 
+```
+
+Em seguida, o assistente perguntará se deve inicializar um novo repositório Git. Também escolha **não**. Faremos isso mais adiante:
+```text
+Initialize a new git repository? (optional)
+         ○ Yes  ● No 
+```
+
+Ao concluir o assistente, entramos no diretório que escolhemos para o projeto. No meu caso, criei o diretório chamado `blog`. Então:
 ```bash
 cd blog
 ```
-O assistente de instalação questiona se queremos instalar as dependências. Se a resposta for "sim", o `npm install` já terá sido executado. No meu caso, eu escolhi "não". Logo, há a necessidade de executar o comando explicitamente:
+
+Como optamos por não instalar as dependências através do assistente, precisamos instalá-las executando o comando explicitamente:
 ```bash
 npm install
 ```
@@ -201,7 +214,7 @@ Para iniciar o servidor de desenvolvimento:
 npm run dev
 ```
 
-O Astro disponibilizará o site normalmente em: [http://localhost:4321/](http://localhost:4321/).
+O Astro disponibilizará o site normalmente em: <a href="http://localhost:4321/" target="_blank" rel="noopener noreferrer">http://localhost:4321/</a>.
 
 Ao acessar esse endereço no navegador, podemos visualizar o projeto funcionando localmente.
 
@@ -262,6 +275,8 @@ Uma das vantagens de começar com o template de blog é que boa parte da estrutu
 
 O projeto já possui componentes para elementos comuns do site, layouts para as páginas, configuração para conteúdo em Markdown/MDX e recursos relacionados à publicação.
 
+Vale destacar também que existem diversos templates do Astro, gratuitos e pagos, que podem ser encontrados na internet e utilizados como ponto de partida. Não é necessário limitar a personalização do layout a esse template.
+
 O arquivo `package.json` também define alguns scripts básicos:
 
 ```json
@@ -275,15 +290,13 @@ O arquivo `package.json` também define alguns scripts básicos:
 }
 ```
 
-Neste projeto, também estão presentes integrações para MDX e sitemap.
-
 ---
 
 ## Preparando o projeto para o GitHub
 
 ### Criando o repositório
 
-O projeto precisa ser transformado em um repositório Git. Para isso, execute o comando:
+Durante a criação do projeto Astro, optamos por não inicializar um novo repositório para o projeto. Logo, precisamos fazer isso manualmente. Para isso, execute o comando:
 ```bash
 git init
 ```
@@ -304,8 +317,6 @@ git branch -M main
 git remote add origin https://github.com/<seu-usuario>/<seu-usuario>.github.io.git
 ```
 
-
-
 Como estamos utilizando npm, o `package-lock.json` também deve ser versionado. Ele registra as versões das dependências utilizadas pelo projeto e permite que a instalação seja reproduzida de forma mais consistente. É utilizado pela action do Astro durante o processo de build. Portanto, garanta que ele não esteja dentro do arquivo `.gitignore`.
 
 
@@ -313,10 +324,7 @@ Como estamos utilizando npm, o `package-lock.json` também deve ser versionado. 
 
 O Astro precisa conhecer a URL pública do site.
 
-Essa configuração é feita no arquivo:
-```text
-astro.config.mjs
-```
+Essa configuração é feita no arquivo **`astro.config.mjs`** que fica na raiz do projeto.
 
 A propriedade `site` deve receber a URL pública. No meu caso será [https://dougcosta.github.io](https://dougcosta.github.io), altere considerando aquela que você definiu:
 ```js
@@ -342,13 +350,7 @@ Até aqui, conseguimos executar o projeto localmente e preparar o repositório p
 
 O GitHub Pages pode hospedar o resultado estático gerado pelo Astro, enquanto o GitHub Actions pode executar automaticamente o processo de build e deploy.
 
-Para isso, criamos o arquivo:
-```text
-.github/workflows/deploy.yml
-```
-
-Um workflow básico para esse projeto é:
-
+Para isso, é necessário criar o arquivo **`.github/workflows/deploy.yml`** manualmente e incluir o conteúdo a seguir, que configura um workflow básico para esse projeto:
 ```yaml
 name: Deploy to GitHub Pages
 
@@ -409,7 +411,7 @@ Depois, o job `deploy` utiliza o artefato gerado para publicá-lo no GitHub Page
 
 ### Configurando o GitHub Pages
 
-No GitHub, acessamos:
+No GitHub, entramos no repositório do projeto e acessamos:
 ```text
 Settings → Pages
 ```
@@ -467,26 +469,19 @@ Site atualizado
 
 Isso significa que, depois da configuração inicial, publicar uma alteração no site passa a ser praticamente uma consequência natural do fluxo de desenvolvimento.
 
----
-
-## Conclusão
-
 Ao final desse processo, temos um site Astro publicado no GitHub Pages e um processo automatizado de build e deploy.
 
 O código permanece versionado no GitHub e cada alteração enviada para a branch `main` gera uma nova versão em produção, publicada automaticamente.
 
-O endereço do site é:
-```text
-https://<seu-usuario>.github.io/
-```
+---
 
-Criar e publicar um site utilizando Astro e GitHub Pages é um processo muito simples. Grande parte dos passos descritos aqui está relacionada à preparação do ambiente e à instalação dos pré-requisitos. Note que foram necessários apenas alguns comandos para que o Astro rodasse localmente.
+## Conclusão
 
-A partir de um template pronto executado localmente, versionamos o código e configuramos uma rotina de build e deploy utilizando GitHub Actions, resultando em um site estático com um processo de publicação automatizado e sem a necessidade de manter um servidor próprio.
+Criar e publicar um site utilizando Astro e GitHub Pages é um processo muito simples. Grande parte dos passos descritos aqui está relacionada à preparação do ambiente e à instalação dos pré-requisitos. Foram necessários apenas alguns comandos para que o Astro rodasse localmente.
 
-Para quem começou a trabalhar com desenvolvimento de software há algumas décadas, a diferença é especialmente interessante. No início da minha carreira, colocar um site no ar envolvia muito mais etapas de configuração, infraestrutura e publicação. Hoje, é possível sair de um diretório vazio para um site publicado e automatizado em relativamente poucos passos.
+A partir de um template pronto, versionamos o código e configuramos uma rotina de build e deploy utilizando GitHub Actions, resultando em um site estático com um processo de publicação automatizado e sem a necessidade de manter um servidor próprio.
 
-Acho essa simplicidade uma das coisas mais interessantes do desenvolvimento web moderno.
+Para quem começou a trabalhar com desenvolvimento de software há duas décadas, a diferença é especialmente interessante. No início da minha carreira, colocar um site no ar envolvia muito mais etapas de configuração, infraestrutura e publicação. Hoje, é possível sair de um diretório vazio para um site publicado e automatizado em relativamente poucos passos. Acho que essa simplicidade é algo muito interessante no desenvolvimento web moderno.
 
 ## Referências
 

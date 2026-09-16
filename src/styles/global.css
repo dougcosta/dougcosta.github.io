@@ -1,6 +1,14 @@
 @import './tokens.css';
 
 @font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300 800;
+	font-display: swap;
+	src: url('../assets/fonts/open-sans-variable.ttf') format('truetype');
+}
+
+@font-face {
 	font-family: 'Newsreader';
 	font-style: normal;
 	font-weight: 200 800;

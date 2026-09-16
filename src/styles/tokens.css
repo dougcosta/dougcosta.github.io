@@ -18,9 +18,9 @@
 	--color-accent: light-dark(var(--blue), var(--blue-light));
 	--color-accent-fg: #fff;
 	/* Typography stays deliberately small: editorial reading, quiet interface, code. */
-	--font-editorial: 'Newsreader', Georgia, serif;
-	--font-interface: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
-	--font-code: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+	--font-editorial: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+	--font-interface: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+	 --font-code: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 	--text-xs: .72rem;
 	--text-sm: .875rem;
 	--text-base: 1rem;

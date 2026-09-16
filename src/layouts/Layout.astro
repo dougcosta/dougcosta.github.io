@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE } from '../consts';
+import { GOOGLE_ANALYTICS_ID } from '../consts';
 
 interface Props {
 	title?: string;
@@ -16,7 +17,7 @@ const pageTitle = title ? `${title} — ${SITE.title}` : `${SITE.title} — ${SI
 <html lang={SITE.lang}>
 	<head>
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKJZHRENJ7"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}

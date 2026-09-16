@@ -134,6 +134,22 @@ Se o site utilizar HTML diretamente, por exemplo, a tag pode ser adicionada ao `
 
 Se o site utilizar algum framework ou gerador de sites, normalmente existe um layout, template ou componente compartilhado que pode ser utilizado para inserir o código uma única vez.
 
+É importante garantir que esse código seja executado somente em produção, caso contrário, os acesso em ambientes de desenvolvimento ou homologação também serão contabilizados pelo Google Analytics, sujando as métricas.
+No meu caso, estou utilizando o Astro. Então, incluí uma condição que verifica se o ambiente atual é o de produção (**`import.meta.env.PROD`**) para escrever o código do GA:
+```astro
+<!-- Google tag (gtag.js) -->
+{import.meta.env.PROD && (			
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKJZHRENJ7"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-FKJZHRENJ7');
+	</script>
+)}
+```
+
 ## Testando a instalação
 
 Depois de publicar o site com a tag, podemos utilizar a própria ferramenta de verificação disponibilizada pelo Google Analytics.

@@ -74,3 +74,39 @@ a:hover { color: var(--color-accent); text-decoration-color: currentColor; }
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+.code-copy {
+	position: absolute;
+	top: .75rem;
+	right: .75rem;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--color-fg-faint);
+	cursor: pointer;
+	opacity: .6;
+	transition: opacity .15s ease;
+}
+
+.code-copy:hover {
+	opacity: 1;
+	color: var(--color-fg-faint);
+}
+
+.code-copy:focus-visible {
+	opacity: 1;
+}
+
+.code-copy svg {
+	width: 1rem;
+	height: 1rem;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}

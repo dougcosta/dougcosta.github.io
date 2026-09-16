@@ -15,6 +15,15 @@ const pageTitle = title ? `${title} — ${SITE.title}` : `${SITE.title} — ${SI
 
 <html lang={SITE.lang}>
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKJZHRENJ7"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', GOOGLE_ANALYTICS_ID);
+		</script>
 		<BaseHead title={pageTitle} description={description} />
 	</head>
 

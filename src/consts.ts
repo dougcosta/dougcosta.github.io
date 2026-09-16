@@ -36,3 +36,4 @@ export const BLOG = {
 // Backwards-compatible exports while the site moves from the Astro starter.
 export const SITE_TITLE = SITE.title;
 export const SITE_DESCRIPTION = SITE.description;
+export const GOOGLE_ANALYTICS_ID = 'G-FKJZHRENJ7';

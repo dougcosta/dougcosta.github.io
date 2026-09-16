@@ -7,7 +7,7 @@ tags:
   - GitHub Pages
   - GitHub Actions
   - JavaScript
-draft: true
+draft: false
 ---
 
 ## Introdução
@@ -214,7 +214,7 @@ Para iniciar o servidor de desenvolvimento:
 npm run dev
 ```
 
-O Astro disponibilizará o site normalmente em: <a href="http://localhost:4321/" target="_blank" rel="noopener noreferrer">http://localhost:4321/</a>.
+O Astro disponibilizará o site normalmente em: [http://localhost:4321/](http://localhost:4321/).
 
 Ao acessar esse endereço no navegador, podemos visualizar o projeto funcionando localmente.
 

@@ -1,7 +1,7 @@
 ---
 title: "Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions"
 description: "Um guia prático para criar um site com o template de blog do Astro e automatizar sua publicação no GitHub Pages."
-pubDate: 2026-09-15
+pubDate: 2026-09-16
 tags:
   - Astro
   - GitHub Pages

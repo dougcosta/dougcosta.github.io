@@ -1,5 +1,5 @@
 export const SITE = {
-	url: 'https://dougcosta.github.io',
+	url: 'https://dougcosta.com',
 	title: 'Doug Costa',
 	tagline: 'Leadership, Software Engineering, Technology & Learning',
 	description:
@@ -10,7 +10,7 @@ export const SITE = {
 
 export const AUTHOR = {
 	name: 'Doug Costa',
-	url: 'https://dougcosta.github.io',
+	url: 'https://dougcosta.com',
 } as const;
 
 export const NAV = [

@@ -1,7 +1,9 @@
 ---
 title: "Fazendo links externos dos posts abrirem em uma nova aba no Astro"
 description: "Como criar e configurar um plugin com Sätteri para fazer links externos dos posts Markdown abrirem automaticamente em uma nova aba."
-pubDate: 2026-09-16
+pubDate: 2026-09-17
+lang: pt-BR
+translationKey: astro-external-links
 tags:
   - Astro
   - Markdown
@@ -12,9 +14,11 @@ draft: false
 
 ## Introdução
 
-Ao escrever posts em Markdown, é muito comum utilizar links para documentações, artigos, repositórios e outros conteúdos externos.
+É muito comum utilizar links externos em sites ou artigos. Pode ser links para informações complementares, referências, repositórios de código ou outros conteúdos externos.
 
-No meu site, eu queria que esses links fossem abertos em uma nova aba do navegador. Dessa forma, o leitor pode consultar uma referência externa sem perder a página do post que está lendo.
+A boa prática é que esses links sejam abertos em uma nova aba ou janela do Browser. Dessa forma, o leitor continua na página do conteúdo principal, sem que ele desvie a sua atenção ou se perca.
+
+Fui supreendido ao descobrir que o Astro não suporta esse recurso por padrão, abrindo os links na mesma aba e tirando o leitor do site principal, independetemente se utilizamos o próprio Markdown ou mesmo a tag de ancora do html (a href) diretamente. 
 
 O problema é que o Markdown não possui uma sintaxe própria para definir atributos HTML como `target="_blank"`. A sintaxe tradicional continua sendo algo como:
 
@@ -28,9 +32,7 @@ Neste artigo, vamos criar esse plugin utilizando **Sätteri**, o processador de 
 
 ## O que queremos fazer
 
-A ideia é simples.
-
-Sempre que um link de um post apontar para uma URL externa, queremos que o HTML gerado pelo Astro seja semelhante a:
+A ideia é simples. Sempre que um link de um post apontar para uma URL externa, queremos que o HTML gerado pelo Astro seja semelhante a:
 
 ```html
 <a href="https://docs.astro.build/" target="_blank" rel="noopener noreferrer">
@@ -168,11 +170,15 @@ rel="noopener noreferrer"
 
 Além de ser uma configuração recomendada para links que utilizam `target="_blank"`, ela evita que a página aberta tenha acesso desnecessário à janela que originou a navegação.
 
+Dessa forma, abrir em uma aba separada passa a ser o comportamento padrão para **todos** os links externos.
+
+Caso deseje que mais algum outro atributo seja padrão, basta seguir a mesma lógica e adicioná-lo aqui.
+
 ## Configurando o Astro
 
 Agora precisamos informar ao Astro que queremos utilizar o nosso plugin durante o processamento dos arquivos Markdown.
 
-Abra o arquivo:
+Abra o arquivo abaixo, que fica na raiz do projeto:
 
 ```text
 astro.config.mjs
@@ -233,11 +239,11 @@ Depois execute o projeto localmente:
 npm run dev
 ```
 
-Abra o post no navegador e clique no link.
+Abra o post no navegador e clique no link. Ele deverá ser aberto em uma nova aba.
 
-Ele deverá ser aberto em uma nova aba.
+Também podemos verificar o HTML gerado pelo navegador. Clique com o botão direito na página e escolha a opção correspondete a `inspeção de código` (essa opção pode variar de acordo com o Browser utilizado).
 
-Também podemos verificar o HTML gerado pelo navegador. O link deverá conter:
+O link deverá conter:
 
 ```html
 target="_blank"
@@ -269,7 +275,7 @@ npm run build
 
 e o post estiver marcado como `draft: true`, o arquivo HTML desse post não será gerado.
 
-Nesse caso, procurar por `target="_blank"` no diretório `dist` não permitirá verificar o funcionamento do plugin, porque o próprio post não estará presente no build.
+Nesse caso, procurar por `target="_blank"` no diretório `dist` não permitirá verificar o funcionamento do plugin, porque o próprio post não estará presente no build. Nesse caso, o link não será aberto em uma nova aba ou janela.
 
 Portanto, **antes de testar o plugin em um build de produção, garanta que o post utilizado no teste não esteja com `draft: true`**.
 
@@ -314,13 +320,21 @@ Isso também significa que não precisamos lembrar de adicionar algum atributo e
 
 ## Conclusão
 
-Criar esse comportamento no Astro exigiu um pouco mais de configuração do que eu imaginava inicialmente, principalmente porque o Markdown não possui uma sintaxe própria para controlar atributos HTML como `target`.
+No meu ponto de vista, é supreendente que não haja no Markdown uma sintaxe própria para controlar atributos HTML como `target` por padrão. Entendo que é algo basico na construção de um site e não deveria exigir a implementação adicional, seja através de plugin como descrito nesse artigo, controlando individualmente cada componente ou aplicado alguma outra manobra.
 
-A solução acabou sendo relativamente simples: utilizar o Sätteri para interceptar os elementos `<a>` gerados pelo Markdown e adicionar os atributos necessários aos links externos.
+A solução acabou sendo relativamente simples: utilizar o Sätteri para interceptar os elementos `<a>` gerados pelo Markdown e adicionar os atributos necessários aos links externos, apesar de demandar uma pesquisa mais detalhada para chegar nessa alternativa.
 
-O ponto mais importante para mim foi perceber que esse tipo de comportamento pode ser centralizado em um plugin. Em vez de adaptar cada post individualmente, criamos uma regra que passa a valer para todo o conteúdo Markdown do site.
+O importante foi perceber que esse tipo de comportamento pode ser centralizado em um plugin. Em vez de adaptar cada post individualmente, criamos uma regra que passa a valer para todo o conteúdo Markdown do site.
 
 Também fica um aprendizado importante para os testes: quando trabalhamos com posts que possuem `draft: true`, precisamos lembrar que eles não participam do build de produção. Caso contrário, podemos interpretar a ausência do conteúdo gerado como um problema no plugin, quando na verdade o post simplesmente não foi publicado no build.
+
+## Links úteis
+
+Se você ainda não possui um site e quer criar um utilizando Astro, veja também o artigo:
+
+- [Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions](./construindo-site-astro-github-pages/)
+
+Nesse artigo, mostro o processo de criação de um projeto Astro a partir do template de blog e a configuração da publicação automática no GitHub Pages utilizando GitHub Actions.
 
 ## Referências
 

@@ -8,7 +8,7 @@ import { externalLinks } from './src/plugins/external-links';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://dougcosta.github.io',
+	site: 'https://dougcosta.com',
 	i18n: {
 		defaultLocale: 'pt-BR',
 		locales: ['pt-BR', 'en', 'fr', 'es'],

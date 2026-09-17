@@ -3,17 +3,22 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE } from '../consts';
+import { getTranslations } from '../i18n';
+import { getLocaleFromUrl } from '../i18n/utils';
 
 interface Props {
 	title?: string;
 	description?: string;
+	currentPost?: import('astro:content').CollectionEntry<'blog'>;
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, currentPost } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
 const pageTitle = title ? `${title} — ${SITE.title}` : `${SITE.title} — ${SITE.tagline}`;
 ---
 
-<html lang={SITE.lang}>
+<html lang={locale}>
 	<head>
 		<!-- Google tag (gtag.js) -->
 		{import.meta.env.PROD && (			
@@ -30,9 +35,9 @@ const pageTitle = title ? `${title} — ${SITE.title}` : `${SITE.title} — ${SI
 	</head>
 
 	<body>
-		<Header />
+		<Header currentPost={Astro.props.currentPost} />
 
-		<a class="skip-link" href="#main">Pular para o conteúdo</a>
+		<a class="skip-link" href="#main">{t.common.skipToContent}</a>
 		<main id="main">
 			<slot />
 		</main>

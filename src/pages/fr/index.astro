@@ -1,14 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import { BLOG, SITE } from '../consts';
-import { getTranslations } from '../i18n';
-import { getPostsByLocale, getPublishedPosts } from '../utils/posts';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { BLOG, SITE } from '../../consts';
+import { getTranslations } from '../../i18n';
+import { getPostsByLocale, getPublishedPosts } from '../../utils/posts';
 
-const t = getTranslations('pt-BR');
+const locale = 'fr';
+const t = getTranslations(locale);
 const posts = getPostsByLocale(
 	await getPublishedPosts(),
-	'pt-BR',
+	'fr'
 ).slice(0, BLOG.postsOnHome);
 ---
 
@@ -18,10 +19,15 @@ const posts = getPostsByLocale(
 		<h1>Doug Costa</h1>
 		<p class="lede">{SITE.tagline}</p>
 		<p class="intro">{t.home.intro}</p>
-		<a class="cta" href="/blog/">{t.home.readBlog}</a>
+		<a class="cta" href="/en/blog/">{t.home.readBlog}</a>
 	</section>
+
 	<section class="latest wrap">
-		<div class="latest__head"><h2>{t.home.latestPosts}</h2><a href="/blog/">{t.home.allPosts}</a></div>
+		<div class="latest__head">
+			<h2>{t.home.latestPosts}</h2>
+			<a href="/en/blog/">{t.home.allPosts}</a>
+		</div>
+
 		{posts.length ? posts.map((post) => <PostCard post={post} />) : <p class="empty">{t.home.empty}</p>}
 	</section>
 </Layout>

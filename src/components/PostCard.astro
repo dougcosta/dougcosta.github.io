@@ -3,8 +3,13 @@ import { BLOG } from '../consts';
 import { formatDate } from '../utils/date';
 import { readingTime } from '../utils/reading-time';
 import { tagSlug, type Post } from '../utils/posts';
+import { getTranslations } from '../i18n';
+import { getLocaleFromUrl } from '../i18n/utils';
+
 interface Props { post: Post; }
 const { post } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
 const { title, description, pubDate, tags } = post.data;
 ---
 
@@ -13,7 +18,7 @@ const { title, description, pubDate, tags } = post.data;
 	<div>
 		<h2><a href={`/blog/${post.id}/`}>{title}</a></h2>
 		<p class="post-card__description">{description}</p>
-		<p class="post-card__meta label">{tags.map((tag) => <a href={`/tags/${tagSlug(tag)}/`}>#{tag}</a>)} {BLOG.showReadingTime && <span>{readingTime(post.body)} min de leitura</span>}</p>
+		<p class="post-card__meta label">{tags.map((tag) => <a href={`/tags/${tagSlug(tag)}/`}>#{tag}</a>)} {BLOG.showReadingTime && <span>{readingTime(post.body)} {t.common.minutesRead}</span>}</p>
 	</div>
 </article>
 

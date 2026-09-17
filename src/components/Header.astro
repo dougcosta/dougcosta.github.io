@@ -1,8 +1,64 @@
 ---
-import { NAV, SITE } from '../consts';
+import { SITE } from '../consts';
+import { getTranslations, type Locale } from '../i18n';
+import { getLocaleFromUrl, getLocalePrefix } from '../i18n/utils';
 import ThemeToggle from './ThemeToggle.astro';
+import type { CollectionEntry } from 'astro:content';
+import { getPublishedPosts, getTranslatedPost } from '../utils/posts';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+
+interface Props {
+	currentPost?: CollectionEntry<'blog'>;
+}
+
+const { currentPost } = Astro.props;
+const posts = currentPost ? await getPublishedPosts() : [];
+
+const languages: { locale: Locale; label: string }[] = [
+	{ locale: 'pt-BR', label: 'PT' },
+	{ locale: 'en', label: 'EN' },
+	{ locale: 'fr', label: 'FR' },
+	{ locale: 'es', label: 'ES' },
+];
+ 
+const basePath = locale === 'pt-BR' ? '' : `/${locale}`;
+
+const NAV = [
+	{ href: `${basePath}/`, label: t.nav.home },
+	{ href: `${basePath}/blog/`, label: t.nav.blog },
+	{ href: `${basePath}/about/`, label: t.nav.about },
+];
+
+const languagePath = (targetLocale: Locale) => {
+	if (!currentPost) {
+		const prefix = getLocalePrefix(targetLocale);
+		const currentPath = Astro.url.pathname;
+
+		const pathWithoutLocale =
+			locale === 'pt-BR'
+				? currentPath
+				: currentPath.replace(new RegExp(`^/${locale}`), '') || '/';
+
+		return `${prefix}${pathWithoutLocale === '/' ? '/' : pathWithoutLocale}`;
+	}
+
+	const translatedPost = getTranslatedPost(
+		posts,
+		currentPost,
+		targetLocale,
+	);
+
+	if (!translatedPost) {
+		return `${getLocalePrefix(targetLocale)}/blog/`;
+	}
+
+	return `${getLocalePrefix(targetLocale)}/blog/${translatedPost.id}/`;
+};
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
 const isCurrent = (href: string) => {
 	const target = href.replace(/\/$/, '') || '/';
 	return path === target || (target !== '/' && path.startsWith(`${target}/`));
@@ -10,13 +66,23 @@ const isCurrent = (href: string) => {
 ---
 
 <header class="site-header">
-	<a class="brand" href="/">{SITE.title}</a>
+	<a class="brand" href={`${basePath}/`}>{SITE.title}</a>
 	<div class="site-header__end">
 		<nav aria-label="Primary">
 			<ul>
 				{NAV.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>)}
 			</ul>
 		</nav>
+		<div class="language-switcher" aria-label="Language">
+			{languages.map(({ locale: targetLocale, label }) => (
+				<a
+					href={languagePath(targetLocale)}
+					aria-current={locale === targetLocale ? 'page' : undefined}
+				>
+					{label}
+				</a>
+			))}
+		</div>
 		<ThemeToggle />
 	</div>
 </header>
@@ -30,4 +96,9 @@ const isCurrent = (href: string) => {
 	nav a:hover, nav a[aria-current='page'] { color: var(--color-fg); }
 	nav a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: .5em; }
 	@media (max-width: 30rem) { .site-header { padding-block: var(--space-4); } nav ul { gap: var(--space-4); } }
+	.language-switcher { display: flex; align-items: center; gap: var(--space-3); }
+	.language-switcher a { font-family: var(--font-interface); font-size: var(--text-xs); font-weight: 500; letter-spacing: .06em; text-decoration: none; color: var(--color-fg-muted);}
+	.language-switcher a:hover,
+	.language-switcher a[aria-current='page'] { color: var(--color-fg); }
+	.language-switcher a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: .5em; }
 </style>

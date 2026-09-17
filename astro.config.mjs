@@ -9,6 +9,13 @@ import { externalLinks } from './src/plugins/external-links';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://dougcosta.github.io',
+	i18n: {
+		defaultLocale: 'pt-BR',
+		locales: ['pt-BR', 'en', 'fr', 'es'],
+		routing: {
+			prefixDefaultLocale: false,
+		},
+	},
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		processor: satteri({

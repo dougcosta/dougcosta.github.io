@@ -23,3 +23,29 @@ export function collectTags(posts: Post[]) {
 }
 
 export const postsByTag = (posts: Post[], slug: string) => posts.filter((post) => post.data.tags.some((tag) => tagSlug(tag) === slug));
+
+export function getTranslatedPost(
+	posts: Post[],
+	post: Post,
+	locale: Post['data']['lang'],
+) {
+	return posts.find(
+		(candidate) =>
+			candidate.data.translationKey === post.data.translationKey &&
+			candidate.data.lang === locale,
+	);
+}
+
+export function getPostsByLocale(
+	posts: Post[],
+	locale: Post['data']['lang'],
+) {
+	return posts.filter((post) => post.data.lang === locale);
+}
+
+export function getPostTranslations(posts: Post[], post: Post) {
+	return posts.filter(
+		(candidate) =>
+			candidate.data.translationKey === post.data.translationKey,
+	);
+}

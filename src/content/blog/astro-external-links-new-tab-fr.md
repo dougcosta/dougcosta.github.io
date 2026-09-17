@@ -1,7 +1,7 @@
 ---
-titlet : "Ouvrir les liens externes des articles dans un nouvel onglet avec Astro"
+title: "Ouvrir les liens externes des articles dans un nouvel onglet avec Astro"
 description: "Comment créer et configurer un plugin avec Sätteri pour ouvrir automatiquement les liens externes des articles Markdown dans un nouvel onglet."
-pubDatet : 2026-09-17
+pubDate: 2026-09-17
 lang: fr
 translationKey: astro-external-links
 tags:

@@ -1,7 +1,7 @@
 ---
-titland: "Opening External Post Links in a New Tab in Astro"
+title: "Opening External Post Links in a New Tab in Astro"
 description: "How to create and configure a Sätteri plugin to automatically open external links from Markdown posts in a new tab."
-pubDatand: 2026-09-17
+pubDate: 2026-09-17
 lang: en
 translationKey: astro-external-links
 tags:

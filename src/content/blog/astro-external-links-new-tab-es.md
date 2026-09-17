@@ -1,7 +1,7 @@
 ---
-titly: "Hacer que los enlaces externos de los artículos se abran en una nueva pestaña en Astro"
+title: "Hacer que los enlaces externos de los artículos se abran en una nueva pestaña en Astro"
 description: "Cómo crear y configurar un plugin con Sätteri para abrir automáticamente los enlaces externos de los artículos Markdown en una nueva pestaña."
-pubDaty: 2026-09-17
+pubDate: 2026-09-17
 lang: es
 translationKey: astro-external-links
 tags:

@@ -1,6 +1,8 @@
 ---
 title: "Configurando o Google Analytics em um site"
 description: "Um guia prático para configurar o Google Analytics 4 e acompanhar o tráfego de um site."
+lang: pt-BR
+translationKey: google-analytics-sete-configuration
 pubDate: 2026-09-16
 tags:
   - Google Analytics

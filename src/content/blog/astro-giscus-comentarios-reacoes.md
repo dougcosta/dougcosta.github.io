@@ -35,17 +35,21 @@ Foi a solução que escolhi.
 
 ## Preparando o GitHub
 
-Antes de configurar o Giscus, foi necessário habilitar o GitHub Discussions no repositório.
+Antes de configurar o Giscus, é necessário habilitar o GitHub Discussions no repositório.
 
-No GitHub, acessei:
+No GitHub, acessamos:
 
-**Settings → Features → Discussions → Set up discussions**
+**Settings → Features**
+
+Procuramos pelo bloco **Discussions** e habilitamos essa opção.
+
+Depois, clicamos em **Set up discussions**.
 
 A interface do GitHub pode mudar com o tempo, mas esse foi o caminho e o nome da opção que encontrei durante a configuração.
 
 Ao habilitar **Discussions** e clicar no botão **Set up discussions**, abriu-se uma tela para selecionar o repositório e instalar a ferramenta.
 
-Selecionei o repositório do meu site e segui:
+Selecionamos o repositório e seguimos. No meu caso é:
 ```text
 dougcosta/dougcosta.github.io
 ```
@@ -56,13 +60,13 @@ Depois disso, o repositório passou a ter a aba **Discussions**.
 
 Também foi necessário instalar o GitHub App do Giscus e permitir seu acesso ao repositório.
 
-Depois da instalação, acessei a aba **Discussions** do repositório.
+Depois da instalação, acessamos a aba **Discussions** do repositório.
 
-O Giscus trabalha com categorias dentro do GitHub Discussions. Para configurar a categoria que seria usada pelos comentários do blog, acessei **Categories**, na barra lateral esquerda.
+O Giscus trabalha com categorias dentro do GitHub Discussions. Para configurar a categoria que seria usada pelos comentários do blog, acessamos **Categories**, na barra lateral esquerda.
 
 Ao lado de **Categories** existe um botão com o ícone de lápis para editar as categorias.
 
-Criei uma categoria chamada:
+Vamos criar uma categoria chamada:
 
 **Blog Comments**
 
@@ -70,9 +74,9 @@ Essa categoria será utilizada pelo Giscus para criar as discussões corresponde
 
 ## Configurando o Giscus
 
-Com o GitHub preparado, fui para o configurador do Giscus em português.
+Com o GitHub preparado, vamos para o configurador do Giscus.
 
-A configuração final ficou assim:
+A configuração final deve ficar assim:
 
 - Idioma: **Português**
 - Repositório: **`dougcosta/dougcosta.github.io`**
@@ -85,19 +89,19 @@ A configuração final ficou assim:
 - Carregamento: **lazy**
 - Tema: **Esquema de cores preferido**
 
-O valor da configuração **Categoria** precisa ser exatamente o mesmo da categoria criada no GitHub, aba Discussions. Note que em ambos incluímos o valor **Blog Comments**.
+O valor da configuração **Categoria** precisa ser exatamente o mesmo da categoria criada no GitHub, na aba **Discussions**. Em ambos os casos, utilizamos o valor **Blog Comments**.
 
-O Giscus também forneceu os identificadores específicos do repositório e da categoria, representados pelos identificadores **`data-repo-id`** e **`data-category-id`**. Esses valores são específicos da configuração do meu repositório.
+O Giscus também forneceu os identificadores específicos do repositório e da categoria, representados pelos identificadores **`data-repo-id`** e **`data-category-id`**. Os valores são específicos da configuração de cada repositório.
 
 ## Criando o componente Giscus
 
-Em vez de colocar o código do Giscus diretamente no layout dos posts, preferi criar um componente específico:
+Em vez de colocar o código do Giscus diretamente no layout dos posts, vamos criar um componente específico:
 
 ```text
 src/components/Giscus.astro
 ```
 
-Agora, dentro do arquivo `src/components/Giscus.astro`, coloquei a configuração do Giscus e a lógica necessária para inicializá-lo:
+Agora, dentro do arquivo `src/components/Giscus.astro`, colocamos a configuração do Giscus, a lógica necessária para inicializá-lo e ajustamos o seu posicionamento via código:
 
 ```astro
 <div
@@ -210,7 +214,7 @@ Agora, dentro do arquivo `src/components/Giscus.astro`, coloquei a configuraçã
 </style>
 ```
 A primeira parte define as propriedades do Giscus e carrega o script do serviço. 
-Essas propriedaes estão disponíveis na área de configuração do portal do Giscus, basta copiar e colar no nosso código.
+Essas propriedades estão disponíveis na área de configuração do portal do Giscus. Podemos copiar os valores gerados pelo configurador e colocá-los no nosso código.
 
 ```astro
 <div
@@ -242,7 +246,10 @@ A parte em JavaScript cuida da inicialização e da sincronização do tema com 
 		const getTheme = () =>
 			root.dataset.theme || (media.matches ? 'dark' : 'light');
 
+		// Inicialização do Giscus e sincronização do tema...
 		...
+	}
+</script>
 
 <style>
 	.giscus {
@@ -262,13 +269,13 @@ Isso significa que o Giscus não precisa carregar imediatamente quando o usuári
 
 Para um site estático, esse comportamento ajuda a evitar carregar o iframe de comentários antes de ele ser necessário.
 
-Caso queira que o iframe carregue junto com a página, basta alterar esse parâmetro para `eager`.
+Para carregar o iframe junto com a página, esse parâmetro deve receber o valor `eager`.
 
 ## Caso o site tenha múltiplos idiomas
 
-Esta parte é uma peculiaridade do meu site, que possui suporte a múltiplos idiomas. Se o seu site tiver apenas um idioma, você pode ignorar este tópico.
+Esta parte é uma peculiaridade do meu site, que possui suporte a múltiplos idiomas. Se estivermos trabalhando com um site de apenas um idioma, podemos ignorar este tópico.
 
-O componente deve iniciar identificando o locale atual do site. Fazemos isso através do código abaixo:
+Como o componente precisa identificar o locale atual do site, fazemos isso através do código abaixo:
 ```astro
 ---
 import type { Locale } from '../i18n';
@@ -304,7 +311,7 @@ Dessa forma, o atributo `data-lang` das propriedades do Giscus passa a receber o
 	data-lang={giscusLang}
 	...
 ></div>
-````
+```
 
 O código completo com a implementação do locale fica assim:
 
@@ -640,12 +647,24 @@ Para um blog técnico pessoal, foi uma solução que se encaixou bem na arquitet
 
 ## Links úteis
 
-Se você ainda não possui um site e quer criar um utilizando Astro, veja também o artigo:
+Se você ainda não possui um site e quer criar um utilizando Astro, veja o artigo:
 
-- [Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions](./construindo-site-astro-github-pages/)
+- [Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions](../construindo-site-astro-github-pages/)
 
-Nele, mostro o processo de criação de um projeto Astro a partir do template de blog e a configuração da publicação automática no GitHub Pages utilizando GitHub Actions.
 
-- [Fazendo links externos dos posts abrirem em uma nova aba no Astro](./astro-links-em-nova-aba/)
+Se você quer que os links do seu site Astro abram em uma nova aba, veja o artigo:
 
-Nele, mostro como criar e configurar um plugin com Sätteri para fazer links externos dos posts Markdown abrirem automaticamente em uma nova aba."
+- [Fazendo links externos dos posts abrirem em uma nova aba no Astro](../astro-links-em-nova-aba/)
+
+
+## Referências
+
+As principais referências utilizadas para esta implementação foram as documentações oficiais do Giscus, do GitHub e do Astro:
+
+- [Giscus — configurador](https://giscus.app/pt)
+- [Giscus — GitHub](https://github.com/giscus/giscus)
+- [Giscus — uso avançado](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md)
+- [GitHub Docs — Guia Rápido para Discussões do GitHub](https://docs.github.com/pt/discussions/quickstart)
+- [GitHub Docs — Habilitar ou desabilitar discussões de GitHub para um repositório](https://docs.github.com/pt/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/enabling-or-disabling-github-discussions-for-a-repository)
+- [GitHub Docs — Gerenciar categorias para discussões](https://docs.github.com/pt/discussions/managing-discussions-for-your-community/managing-categories-for-discussions)
+- [Astro — Componentes](https://docs.astro.build/pt-br/basics/astro-components/)

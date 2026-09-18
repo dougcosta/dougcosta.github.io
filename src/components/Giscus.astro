@@ -1,0 +1,120 @@
+---
+import type { Locale } from '../i18n';
+
+type Props = {
+	lang: Locale;
+};
+
+const { lang } = Astro.props;
+
+const giscusLang = lang === 'pt-BR' ? 'pt' : lang;
+---
+
+<div
+	class="giscus"
+	data-repo="dougcosta/dougcosta.github.io"
+	data-repo-id="R_kgDOUVoXSQ"
+	data-category="Blog Comments"
+	data-category-id="DIC_kwDOUVoXSc4DF52f"
+	data-mapping="pathname"
+	data-strict="0"
+	data-reactions-enabled="1"
+	data-emit-metadata="0"
+	data-input-position="bottom"
+	data-lang={giscusLang}
+	data-loading="lazy"
+></div>
+
+<script>
+	const giscus = document.querySelector('.giscus');
+
+	if (giscus) {
+		const root = document.documentElement;
+		const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+		const getTheme = () =>
+			root.dataset.theme || (media.matches ? 'dark' : 'light');
+
+		const sendTheme = (iframe: HTMLIFrameElement) => {
+			iframe.contentWindow?.postMessage(
+				{
+					giscus: {
+						setConfig: {
+							theme: getTheme(),
+						},
+					},
+				},
+				'https://giscus.app',
+			);
+		};
+
+		const script = document.createElement('script');
+
+		script.src = 'https://giscus.app/client.js';
+		script.setAttribute('data-repo', giscus.getAttribute('data-repo')!);
+		script.setAttribute('data-repo-id', giscus.getAttribute('data-repo-id')!);
+		script.setAttribute('data-category', giscus.getAttribute('data-category')!);
+		script.setAttribute('data-category-id', giscus.getAttribute('data-category-id')!);
+		script.setAttribute('data-mapping', giscus.getAttribute('data-mapping')!);
+		script.setAttribute('data-strict', giscus.getAttribute('data-strict')!);
+		script.setAttribute('data-reactions-enabled', giscus.getAttribute('data-reactions-enabled')!);
+		script.setAttribute('data-emit-metadata', giscus.getAttribute('data-emit-metadata')!);
+		script.setAttribute('data-input-position', giscus.getAttribute('data-input-position')!);
+		script.setAttribute('data-theme', getTheme());
+		script.setAttribute('data-lang', giscus.getAttribute('data-lang')!);
+		script.setAttribute('data-loading', giscus.getAttribute('data-loading')!);
+		script.setAttribute('crossorigin', 'anonymous');
+		script.async = true;
+
+		giscus.appendChild(script);
+
+		const iframeObserver = new MutationObserver(() => {
+			const iframe = giscus.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+
+			if (!iframe) return;
+
+			iframe.addEventListener('load', () => {
+				sendTheme(iframe);
+			}, { once: true });
+
+			iframeObserver.disconnect();
+		});
+
+		iframeObserver.observe(giscus, {
+			childList: true,
+			subtree: true,
+		});
+
+		const themeObserver = new MutationObserver(() => {
+			const iframe = giscus.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+
+			if (iframe) {
+				sendTheme(iframe);
+			}
+		});
+
+		themeObserver.observe(root, {
+			attributes: true,
+			attributeFilter: ['data-theme'],
+		});
+
+		media.addEventListener('change', () => {
+			if (!root.dataset.theme) {
+				const iframe = giscus.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+
+				if (iframe) {
+					sendTheme(iframe);
+				}
+			}
+		});
+	}
+</script>
+
+<style>
+	.giscus {
+		max-width: var(--width-prose);
+		margin-top: var(--space-16);
+		padding-top: var(--space-8);
+		border-top: 1px solid var(--color-rule);
+	}
+</style>

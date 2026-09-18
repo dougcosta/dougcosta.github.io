@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
+import Giscus from '../components/Giscus.astro';
 import { formatDate } from '../utils/date';
 import { tagSlug } from '../utils/posts';
 
@@ -23,6 +24,7 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroImageAlt 
 		</header>
 		{heroImage && <figure class="hero-image"><Image widths={[640, 960, 1280]} sizes="(min-width: 60rem) 60rem, 100vw" src={heroImage} alt={heroImageAlt ?? ''} /></figure>}
 		<div class="prose"><slot /></div>
+		<Giscus lang={post.data.lang} />
 	</article>
 </Layout>
 

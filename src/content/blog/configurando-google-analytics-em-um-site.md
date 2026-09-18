@@ -6,7 +6,7 @@ tags:
   - Google Analytics
   - Web
   - JavaScript
-draft: false
+draft: true
 ---
 
 ## Introdução

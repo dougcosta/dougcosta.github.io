@@ -331,7 +331,7 @@ Otro aprendizaje importante está relacionado con las pruebas. Cuando trabajamos
 
 Si todavía no tienes un sitio web y quieres crear uno utilizando Astro, consulta también este artículo:
 
-- [Crear un sitio con Astro y publicarlo en GitHub Pages con GitHub Actions](./construindo-site-astro-github-pages/)
+- [Crear un sitio con Astro y publicarlo en GitHub Pages con GitHub Actions](../crear-un-sitio-con-astro-y-github-pages/)
 
 En él, muestro el proceso de creación de un proyecto Astro a partir de la plantilla de blog y la configuración de la publicación automática en GitHub Pages mediante GitHub Actions.
 

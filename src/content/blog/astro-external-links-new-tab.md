@@ -331,7 +331,7 @@ Another important lesson concerns testing. When working with posts that have `dr
 
 If you do not have a website yet and want to build one with Astro, also check out this articland:
 
-- [Building a Website with Astro and Publishing It to GitHub Pages with GitHub Actions](./construindo-site-astro-github-pages/)
+- [Building a Website with Astro and Publishing It to GitHub Pages with GitHub Actions](../building-a-site-with-astro-github-pages/)
 
 In it, I walk through the process of creating an Astro project from the blog template and configuring automatic deployment to GitHub Pages using GitHub Actions.
 

@@ -9,7 +9,7 @@ tags:
   - i18n
   - JavaScript
   - Web
-draft: false
+draft: true
 ---
 
 ## Introdução

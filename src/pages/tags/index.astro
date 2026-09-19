@@ -2,7 +2,8 @@
 import PageHeader from '../../components/PageHeader.astro';
 import Layout from '../../layouts/Layout.astro';
 import { collectTags, getPublishedPosts } from '../../utils/posts';
-const tags = collectTags(await getPublishedPosts());
+const posts = await getPublishedPosts();
+const tags = collectTags(posts.filter((post) => post.data.lang === 'pt-BR'));
 ---
 <Layout title="Tópicos" description="Tópicos abordados no blog de Doug Costa.">
 	<div class="wrap">

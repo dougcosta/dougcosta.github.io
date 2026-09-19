@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import PostCard from '../../../../components/PostCard.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import { BLOG } from '../../../../consts';
+import {
+	collectTags,
+	getPublishedPosts,
+	postsByTag,
+	type Post,
+} from '../../../../utils/posts';
+
+const locale = 'fr';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = await getPublishedPosts();
+	const localizedPosts = posts.filter((post) => post.data.lang === 'fr');
+	const tags = collectTags(localizedPosts);
+
+	return tags.flatMap((tag) =>
+		paginate(postsByTag(localizedPosts, tag.slug), {
+			params: { tag: tag.slug },
+			pageSize: BLOG.postsPerPage,
+			props: { tagName: tag.name },
+		}),
+	);
+}) satisfies GetStaticPaths;
+
+const { page, tagName } = Astro.props as {
+	page: Page<Post>;
+	tagName: string;
+};
+---
+
+<Layout title={`Sujet : ${tagName}`} description={`Articles sur ${tagName}.`}>
+	<div class="wrap">
+		<PageHeader
+			eyebrow="Sujet"
+			title={tagName}
+			lede={`${page.total} ${page.total === 1 ? 'article' : 'articles'} dans ce sujet.`}
+		>
+			<p class="back">
+				<a href="/fr/tags/">← Tous les sujets</a>
+			</p>
+		</PageHeader>
+
+		<section class="post-list">
+			{page.data.map((post) => <PostCard post={post} />)}
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.back {
+		margin-top: var(--space-6);
+	}
+
+	.post-list {
+		margin-top: var(--space-4);
+	}
+</style>

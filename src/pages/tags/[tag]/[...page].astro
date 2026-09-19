@@ -8,7 +8,15 @@ import { collectTags, getPublishedPosts, postsByTag, type Post } from '../../../
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const posts = await getPublishedPosts();
-	return collectTags(posts).flatMap((tag) => paginate(postsByTag(posts, tag.slug), { params: { tag: tag.slug }, pageSize: BLOG.postsPerPage, props: { tagName: tag.name } }));
+	const localizedPosts = posts.filter((post) => post.data.lang === 'pt-BR');
+
+	return collectTags(localizedPosts).flatMap((tag) =>
+		paginate(postsByTag(localizedPosts, tag.slug), {
+			params: { tag: tag.slug },
+			pageSize: BLOG.postsPerPage,
+			props: { tagName: tag.name },
+		}),
+	);
 }) satisfies GetStaticPaths;
 const { page, tagName } = Astro.props as { page: Page<Post>; tagName: string };
 ---

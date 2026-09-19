@@ -19,7 +19,7 @@ const { title, description, pubDate, tags } = post.data;
 	<div>
 		<h2><a href={`${localePrefix}/blog/${post.id}/`}>{title}</a></h2>
 		<p class="post-card__description">{description}</p>
-		<p class="post-card__meta label">{tags.map((tag) => <a href={`/tags/${tagSlug(tag)}/`}>#{tag}</a>)} {BLOG.showReadingTime && <span>{readingTime(post.body)} {t.common.minutesRead}</span>}</p>
+		<p class="post-card__meta label">{tags.map((tag) => <a href={`${localePrefix}/tags/${tagSlug(tag)}/`}>#{tag}</a>)} {BLOG.showReadingTime && <span>{readingTime(post.body)} {t.common.minutesRead}</span>}</p>
 	</div>
 </article>
 

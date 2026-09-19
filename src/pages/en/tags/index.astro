@@ -1,0 +1,70 @@
+---
+import PageHeader from '../../../components/PageHeader.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { getTranslations, type Locale } from '../../../i18n';
+import { collectTags, getPublishedPosts } from '../../../utils/posts';
+
+const locale: Locale = 'en';
+const t = getTranslations(locale);
+
+const posts = await getPublishedPosts();
+const tags = collectTags(posts.filter((post) => post.data.lang === locale));
+---
+
+<Layout title="Topics" description="Topics covered on Doug Costa's blog.">
+	<div class="wrap">
+		<PageHeader
+			eyebrow="Index"
+			title="Topics"
+			lede="Topics explored on the blog."
+		/>
+
+		{tags.length ? (
+			<ul class="topics">
+				{tags.map((tag) => (
+					<li>
+						<a href={`/en/tags/${tag.slug}/`}>
+							<span>{tag.name}</span>
+							<small>{tag.count}</small>
+						</a>
+					</li>
+				))}
+			</ul>
+		) : (
+			<p class="empty">Topics will appear as articles are published.</p>
+		)}
+	</div>
+</Layout>
+
+<style>
+	.topics {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+		gap: 1px;
+		margin-top: var(--space-12);
+		padding: 1px;
+		background: var(--color-rule);
+		list-style: none;
+	}
+
+	.topics li {
+		background: var(--color-bg);
+	}
+
+	.topics a {
+		display: flex;
+		justify-content: space-between;
+		padding: var(--space-6);
+		text-decoration: none;
+	}
+
+	small {
+		color: var(--color-fg-faint);
+		font-family: var(--font-interface);
+	}
+
+	.empty {
+		margin-top: var(--space-12);
+		color: var(--color-fg-muted);
+	}
+</style>

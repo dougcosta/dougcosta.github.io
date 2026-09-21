@@ -3,19 +3,20 @@ title: "Configurando o Google Analytics em um site"
 description: "Um guia prático para configurar o Google Analytics 4 e acompanhar o tráfego de um site."
 lang: pt-BR
 translationKey: google-analytics-sete-configuration
-pubDate: 2026-09-16
+pubDate: 2026-09-21
 tags:
   - Google Analytics
   - Web
   - JavaScript
-draft: true
+  - Astro
+draft: false
 ---
 
 ## Introdução
 
-Depois de colocar um site no ar, uma das perguntas que naturalmente surgem é: quantas pessoas estão acessando esse site?
+O desejo principal ao colocar um site ou aplicativo no ar é que ele seja acessado e que se crie um público engajado. É através de dados que conseguimos avaliar se esse desejo está se cumprindo e precisamos coletá-los de alguma forma.
 
-Além do número de visitantes, também pode ser interessante entender quais páginas são mais acessadas, de onde vêm os visitantes e como eles navegam pelo conteúdo.
+Dados como o número de visitantes, quais páginas ou telas são mais acessadas, de onde vêm os visitantes e como eles navegam pelo conteúdo são alguns dos indicadores que nos ajudam a entender o interesse do público e a contribuir para a evolução do produto.
 
 Para acompanhar essas informações, podemos utilizar o **Google Analytics 4 (GA4)**.
 
@@ -23,35 +24,31 @@ Neste artigo, vamos configurar o Google Analytics em um site, desde a criação 
 
 O exemplo utilizado neste artigo foi feito em um site construído com Astro e publicado no GitHub Pages. Entretanto, a configuração do Google Analytics apresentada aqui pode ser utilizada em diferentes tecnologias e plataformas. O que muda é principalmente a forma de inserir a tag no código do site.
 
-## Criando uma conta no Google Analytics
+## Criando e configurando uma conta no Google Analytics
 
-O primeiro passo é acessar o Google Analytics: [Google Analytics](https://analytics.google.com/)
+### Criando a conta
 
-Entre com a conta Google que será utilizada para administrar o Analytics.
+O primeiro passo é acessar o Google Analytics: [Google Analytics](https://analytics.google.com/).
 
-Caso ainda não exista uma conta do Google Analytics, será necessário criar uma.
+Entre com a conta Google que será utilizada para administrar o Analytics. Caso ainda não exista uma conta do Google Analytics, será necessário criar uma.
 
-Para o nome da conta, podemos utilizar um nome que facilite sua identificação. No meu exemplo, utilizei o nome do site.
+### Criando uma propriedade
 
-## Criando uma propriedade
+O próximo passo é criar uma propriedade. A propriedade representa o conjunto de dados que queremos analisar dentro do Google Analytics. É o local onde os dados coletados pelo Google Analytics serão organizados. No caso desse exemplo, é onde acessaremos os dados do nosso site.
 
-Depois de criar a conta, precisamos criar uma propriedade.
-
-A propriedade é o local onde os dados coletados pelo Google Analytics serão organizados.
-
-Podemos utilizar o nome do site como nome da propriedade. Por exemplo:
+Sendo assim, podemos nomear a propriedade com o nome do site. Por exemplo:
 
 ```text
 Meu Novo Website
 ```
 
-Durante essa etapa, o Google Analytics solicita algumas informações que podem parecer direcionadas a empresas, como o setor de atuação e o tamanho da empresa.
+### Categorizando a propriedade
 
-### E se o site for pessoal?
+Durante essa etapa, o Google Analytics solicita algumas informações que podem parecer direcionadas a empresas, como o setor de atuação e o tamanho da empresa.
 
 Essa etapa pode causar alguma dúvida quando estamos configurando o Analytics para um site pessoal.
 
-Mesmo que você não tenha uma empresa, essas perguntas fazem parte do processo padrão de configuração do Google Analytics.
+Mesmo que não tenhamos uma empresa, essas perguntas fazem parte do processo de configuração do Google Analytics.
 
 No meu caso, por se tratar de um site pessoal relacionado a tecnologia, escolhi a categoria de setor mais próxima de **Tecnologia/Software**.
 
@@ -80,15 +77,13 @@ Depois de criar a propriedade, precisamos informar ao Google Analytics de onde o
 
 Para um site, devemos criar um fluxo de dados do tipo **Web**.
 
-Informe a URL do site que será monitorado.
-
-No exemplo deste artigo:
+Devemos informar a URL do site que será monitorado. No exemplo deste artigo:
 
 ```text
 https://meunovowebsite.com
 ```
 
-Também podemos definir um nome para o fluxo. No meu caso:
+Também podemos definir um nome para o fluxo:
 
 ```text
 Novo Website
@@ -110,7 +105,7 @@ Esse identificador será utilizado pela tag instalada no site.
 
 ## Instalando a tag do Google
 
-Depois de criar o fluxo Web, o Google Analytics apresenta a opção para instalar a tag do Google no site.
+Depois de criar o fluxo Web, o Google Analytics apresenta a opção para instalar a tag do Google no site (não feche essa página/aba. Adiante voltaremos a ela para validar a instalação).
 
 A tag precisa ser adicionada ao código das páginas que serão monitoradas.
 
@@ -128,26 +123,27 @@ O Google fornece um código semelhante a este:
 </script>
 ```
 
-Substitua `G-XXXXXXXXXX` pelo ID de medição gerado para o seu fluxo Web.
+Substitua `G-XXXXXXXXXX` pelo ID de medição gerado para o seu fluxo Web. A sugestão é que esse código seja copiado diretamente do Google Analytics, não desse artigo. Dessa forma, não precisamos nos preocupar em substituir esse ID.
 
 A forma de inserir esse código depende da tecnologia utilizada pelo site.
 
-Se o site utilizar HTML diretamente, por exemplo, a tag pode ser adicionada ao `<head>` das páginas.
+Se o site utilizar HTML diretamente, por exemplo, a tag pode ser adicionada ao `<head>` de **todas** as páginas. As páginas que não receberem essa tag não terão dados coletados.
 
-Se o site utilizar algum framework ou gerador de sites, normalmente existe um layout, template ou componente compartilhado que pode ser utilizado para inserir o código uma única vez.
+Se o site utilizar algum framework ou gerador de sites, normalmente existe um layout, template ou componente compartilhado que pode ser utilizado para inserir o código uma única vez, que é o meu caso. Eu estou utilizando o Astro. Incluí a tag no layout compartilhado pelas páginas do site, garantindo que ela esteja presente em todas as páginas. Dessa forma, nenhuma página ficará sem o código, mesmo as novas páginas que surgirem no futuro.
 
-É importante garantir que esse código seja executado somente em produção, caso contrário, os acesso em ambientes de desenvolvimento ou homologação também serão contabilizados pelo Google Analytics, sujando as métricas.
-No meu caso, estou utilizando o Astro. Então, incluí uma condição que verifica se o ambiente atual é o de produção (**`import.meta.env.PROD`**) para escrever o código do GA:
+É importante garantir que esse código seja executado somente em produção. Caso contrário, os acessos realizados durante o desenvolvimento ou em ambientes de homologação também poderão ser contabilizados pelo Google Analytics, afetando as métricas.
+
+No meu caso, incluí uma condição que verifica se o ambiente atual é o de produção (**`import.meta.env.PROD`**) para escrever o código do GA:
 ```astro
 <!-- Google tag (gtag.js) -->
 {import.meta.env.PROD && (			
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKJZHRENJ7"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
-		gtag('config', 'G-FKJZHRENJ7');
+		gtag('config', 'G-XXXXXXXXXX');
 	</script>
 )}
 ```
@@ -170,13 +166,12 @@ O botão **Testar instalação** se transformou em **Confirmar**. Ao clicá-lo, 
 
 - nome do fluxo;
 - URL do fluxo;
-- código do fluxo;
-- ID da métrica.
+- ID de medição.
 
 Também pode aparecer uma mensagem informando que a coleta de dados ainda não está ativa. Algo como:
 > A coleta de dados não está ativa no seu site. Se você instalou as tags há mais de 48 horas, verifique se elas estão configuradas corretamente.
 
-Isso não significa necessariamente que a instalação esteja incorreta. É necessário que o site envie dados para que a coleta seja confirmada.
+Essa mensagem não significa necessariamente que a instalação esteja incorreta. A coleta precisa receber dados do site para que possa ser confirmada. Para uma verificação imediata, podemos utilizar o relatório **Tempo real**.
 
 ## Verificando a coleta de dados
 
@@ -211,19 +206,19 @@ e posteriormente passar a utilizar:
 https://meuwebsite.com
 ```
 
-A mudança de domínio não significa necessariamente que precisamos criar uma nova propriedade no Google Analytics e perder o histórico de dados.
+A mudança de domínio não significa necessariamente que precisamos criar uma nova propriedade no Google Analytics. Podemos continuar utilizando a propriedade existente e preservar o histórico de dados já coletado.
 
 Quando o novo domínio estiver configurado, podemos atualizar a URL do fluxo Web existente e continuar utilizando o mesmo ID de medição.
 
 O código instalado no site também poderá continuar utilizando o mesmo ID (`G-XXXXXXXXXX`).
 
-Dessa forma, os dados permanecem organizados na mesma propriedade.
+Dessa forma, continuamos utilizando a mesma propriedade e o mesmo fluxo Web, preservando o histórico de dados já coletado.
 
 ## Conclusão
 
-Configurar o Google Analytics em um site é um processo relativamente simples.
+Configurar o Google Analytics em um site é um processo muito simples.
 
-Primeiro criamos a conta e a propriedade, configuramos o fluxo Web e obtemos o ID de medição. Depois adicionamos a tag ao site e fazemos uma publicação para que o código passe a estar disponível para os visitantes.
+Primeiro criamos a conta e a propriedade, configuramos o fluxo Web e obtemos o ID de medição. Depois adicionamos a tag ao site, garantindo que ela seja executada apenas em ambiente produtivo, e fazemos uma publicação para que o código passe a estar disponível para os visitantes.
 
 Por fim, utilizamos as ferramentas de verificação do próprio Google e o relatório em tempo real para confirmar que os dados estão sendo coletados.
 
@@ -233,9 +228,11 @@ A partir desse momento, começamos a ter uma visão mais clara de como o site es
 
 Se você ainda não possui um site e quer criar um utilizando Astro, veja também o artigo:
 
-- [Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions](./construindo-site-astro-github-pages/)
+- [Construindo um site com Astro e publicando no GitHub Pages com GitHub Actions](../construindo-site-astro-github-pages/)
 
-Nesse artigo, mostro o processo de criação de um projeto Astro a partir do template de blog e a configuração da publicação automática no GitHub Pages utilizando GitHub Actions.
+Se você utiliza o Astro e, assim como eu, quer que os links externos do seu site abram em uma nova aba, veja como fiz essa implementação no artigo:  
+
+- [Fazendo links externos dos posts abrirem em uma nova aba no Astro](../astro-links-em-nova-aba/)
 
 ## Referências
 

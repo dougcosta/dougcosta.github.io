@@ -2,7 +2,7 @@
 title: "Setting Up Google Analytics on a Website"
 description: "A practical guide to setting up Google Analytics 4 and tracking website traffic."
 lang: en
-translationKey: google-analytics-sete-configuration
+translationKey: google-analytics-site-configuration
 pubDate: 2026-09-21
 tags:
   - Google Analytics
@@ -230,11 +230,11 @@ From that point on, we start to get a clearer view of how the website is being u
 
 If you do not have a website yet and want to build one with Astro, you may also want to read:
 
-- [Building an Astro website and publishing it on GitHub Pages with GitHub Actions](../construindo-site-astro-github-pages/)
+- [Building a Website with Astro and Publishing It on GitHub Pages with GitHub Actions](../building-a-site-with-astro-github-pages/)
 
 If you use Astro and, like me, want external links on your site to open in a new tab, see how I implemented it in:
 
-- [Making external links in Astro posts open in a new tab](../astro-links-em-nova-aba/)
+- [Opening External Post Links in a New Tab in Astro](../astro-external-links-new-tab/)
 
 ## References
 

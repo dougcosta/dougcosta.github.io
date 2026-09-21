@@ -5,10 +5,14 @@ import Layout from './Layout.astro';
 import Giscus from '../components/Giscus.astro';
 import { formatDate } from '../utils/date';
 import { tagSlug } from '../utils/posts';
+import { getLocaleFromUrl, getLocalePrefix } from '../i18n/utils';
 
 type Props = {
 	post: CollectionEntry<'blog'>;
 };
+
+const locale = getLocaleFromUrl(Astro.url);
+const localePrefix = getLocalePrefix(locale);
 
 const { post } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, heroImage, heroImageAlt } = post.data;
@@ -20,7 +24,7 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroImageAlt 
 			<p class="eyebrow"><time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>{updatedDate && <> · Atualizado em <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></>}</p>
 			<h1>{title}</h1>
 			<p class="lede">{description}</p>
-			{tags.length > 0 && <p class="tags label">{tags.map((tag) => <a href={`/tags/${tagSlug(tag)}/`}>#{tag}</a>)}</p>}
+			{tags.length > 0 && <p class="tags label">{tags.map((tag) => <a href={`${localePrefix}/tags/${tagSlug(tag)}/`}>#{tag}</a>)}</p>}
 		</header>
 		{heroImage && <figure class="hero-image"><Image widths={[640, 960, 1280]} sizes="(min-width: 60rem) 60rem, 100vw" src={heroImage} alt={heroImageAlt ?? ''} /></figure>}
 		<div class="prose"><slot /></div>

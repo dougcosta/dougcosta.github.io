@@ -61,7 +61,13 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const isCurrent = (href: string) => {
 	const target = href.replace(/\/$/, '') || '/';
-	return path === target || (target !== '/' && path.startsWith(`${target}/`));
+	const homeTarget = (basePath || '/').replace(/\/$/, '') || '/';
+
+	if (target === homeTarget) {
+		return path === target;
+	}
+
+	return path === target || path.startsWith(`${target}/`);
 };
 ---
 

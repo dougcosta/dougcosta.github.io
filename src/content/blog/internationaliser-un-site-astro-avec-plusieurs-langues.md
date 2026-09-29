@@ -942,3 +942,11 @@ Si vous utilisez Astro et que, comme moi, vous souhaitez que les liens externes 
 Si vous souhaitez configurer Google Analytics sur un site, consultez également l’article :
 
 - [Configurer Google Analytics sur un site](../configurer-google-analytics-sur-un-site-web/)
+
+## Références
+
+L’implémentation présentée dans cet article s’appuie principalement sur la documentation officielle d’Astro :
+
+- [Internationalization (i18n) Routing — Astro Documentation](https://docs.astro.build/en/guides/internationalization/)
+- [Configuration Reference — Astro Documentation](https://docs.astro.build/en/reference/configuration-reference/)
+- [Content Collections — Astro Documentation](https://docs.astro.build/en/guides/content-collections/)

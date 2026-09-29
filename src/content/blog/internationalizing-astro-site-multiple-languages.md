@@ -941,3 +941,11 @@ If you use Astro and, like me, want external links on your site to open in a new
 If you want to set up Google Analytics on a website, also see the article:
 
 - [Setting Up Google Analytics on a Website](../setting-up-google-analytics-on-a-website/)
+
+## References
+
+The implementation presented in this article was based primarily on the official Astro documentation:
+
+- [Internationalization (i18n) Routing — Astro Documentation](https://docs.astro.build/en/guides/internationalization/)
+- [Configuration Reference — Astro Documentation](https://docs.astro.build/en/reference/configuration-reference/)
+- [Content Collections — Astro Documentation](https://docs.astro.build/en/guides/content-collections/)

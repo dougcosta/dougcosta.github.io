@@ -88,7 +88,7 @@ const isCurrent = (href: string) => {
 </header>
 
 <style>
-	.site-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-6) var(--gutter); border-bottom: 1px solid var(--color-rule); }
+	.site-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-6) var(--gutter); border-bottom: 1px solid var(--color-rule); position:sticky; top:0; background-color: var(--color-bg); z-index: 100; }
 	.brand { font-family: var(--font-interface); font-weight: 650; font-size: 1rem; letter-spacing: .04em; text-decoration: none; text-transform: uppercase; }
 	.site-header__end, nav ul { display: flex; align-items: center; gap: clamp(var(--space-4), 3vw, var(--space-8)); }
 	nav ul { padding: 0; list-style: none; }

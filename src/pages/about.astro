@@ -1,14 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import { getTranslations } from '../i18n';
+import { getLocaleFromUrl } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
 ---
 
-<Layout title="Sobre" description="Sobre Doug Costa">
+<Layout title={t.about.title} description={t.about.description}>
 	<div class="wrap about">
-		<PageHeader eyebrow="Sobre" title="Doug Costa" lede="Liderança, engenharia de software, tecnologia e aprendizado contínuo." />
+		<PageHeader
+			eyebrow={t.about.eyebrow}
+			title={t.about.title}
+			lede={t.about.lede}
+		/>
+
 		<div class="body">
-			<p>Escrevo sobre a prática de construir software: decisões técnicas, arquitetura, times, liderança, tecnologia e o hábito do aprendizado contínuo.</p>
-			<p>Este é um espaço pessoal, calmo e duradouro para ideias que merecem mais do que uma leitura apressada.</p>
+			{t.about.paragraphs.map((paragraph) => (
+				<p>{paragraph}</p>
+			))}
 		</div>
 	</div>
 </Layout>

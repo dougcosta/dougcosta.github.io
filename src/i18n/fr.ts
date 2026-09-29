@@ -27,6 +27,16 @@ const fr = {
 		pagination: 'Pagination du blog',
 		pageOf: 'sur',
 	},
+	about: {
+		eyebrow: 'À propos',
+		title: 'Doug Costa',
+		lede: 'Leadership, ingénierie logicielle, technologie et apprentissage continu.',
+		description: 'À propos de Doug Costa',
+		paragraphs: [
+			'J’écris sur la pratique de la construction logicielle : décisions techniques, architecture, équipes, leadership, technologie et habitude de l’apprentissage continu.',
+			'Il s’agit d’un espace personnel, calme et durable pour des idées qui méritent mieux qu’une lecture précipitée.',
+		],
+	},
 };
 
 export default fr;

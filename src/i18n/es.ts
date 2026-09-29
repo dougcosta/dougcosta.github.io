@@ -27,6 +27,16 @@ const es = {
 		pagination: 'Paginación del blog',
 		pageOf: 'de',
 	},
+	about: {
+		eyebrow: 'Sobre mí',
+		title: 'Doug Costa',
+		lede: 'Liderazgo, ingeniería de software, tecnología y aprendizaje continuo.',
+		description: 'Sobre Doug Costa',
+		paragraphs: [
+			'Escribo sobre la práctica de construir software: decisiones técnicas, arquitectura, equipos, liderazgo, tecnología y el hábito del aprendizaje continuo.',
+			'Este es un espacio personal, tranquilo y duradero para ideas que merecen algo más que una lectura apresurada.',
+		],
+	},
 };
 
 export default es;

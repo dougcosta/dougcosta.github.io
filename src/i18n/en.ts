@@ -27,6 +27,16 @@ const en = {
 		pagination: 'Blog pagination',
 		pageOf: 'of',
 	},
+	about: {
+		eyebrow: 'About',
+		title: 'Doug Costa',
+		lede: 'Leadership, software engineering, technology, and continuous learning.',
+		description: 'About Doug Costa',
+		paragraphs: [
+			'I write about the practice of building software: technical decisions, architecture, teams, leadership, technology, and the habit of continuous learning.',
+			'This is a personal, calm, and lasting space for ideas that deserve more than a rushed read.',
+		],
+	},
 };
 
 export default en;

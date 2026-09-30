@@ -162,7 +162,7 @@ export default {
 };
 ```
 
-O arquivo em inglês possui a mesma estrutura, mas com os textos traduzidos:
+The English file has the same structure, but with the text translated:
 
 ```ts
 export default {
@@ -196,7 +196,7 @@ To do this, we will create:
 src/i18n/index.ts
 ```
 
-O arquivo importa todos os catálogos:
+The file imports all catalogs:
 
 ```ts
 import ptBR from './pt-BR';
@@ -396,7 +396,7 @@ lang: fr
 translationKey: astro-github-pages
 ```
 
-E a versão em espanhol:
+And the Spanish version:
 
 ```yaml
 lang: es
@@ -427,7 +427,7 @@ The French version:
 src/content/blog/creer-un-site-avec-astro-et-github-pages.md
 ```
 
-E a versão em espanhol:
+And the Spanish version:
 
 ```text
 src/content/blog/crear-un-sitio-con-astro-y-github-pages.md
@@ -612,7 +612,7 @@ In addition to improving the browsing experience, this separation prevents conte
 
 With the articles linked through `translationKey`, we can create the language selector in the header.
 
-To do this, in `src/components/Header.astro`, we import the translation utilities we created
+To do this, in `src/components/Header.astro`, we import the translation utilities we created:
 
 ```astro
 ---
@@ -742,13 +742,13 @@ For example:
 /blog/
 ```
 
-pode ser convertido em:
+can be converted into:
 
 ```text
 /en/blog/
 ```
 
-ou:
+or:
 
 ```text
 /fr/blog/
@@ -779,7 +779,7 @@ Thus, a Portuguese page will have:
 <html lang="pt-BR">
 ```
 
-e uma página em inglês:
+and a page in English:
 
 ```html
 <html lang="en">

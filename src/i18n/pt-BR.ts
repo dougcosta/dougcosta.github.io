@@ -34,8 +34,11 @@ const ptBR = {
 		lede: 'Liderança, engenharia de software, tecnologia e aprendizado contínuo.',
 		description: 'Sobre Doug Costa',
 		paragraphs: [
-			'Escrevo sobre a prática de construir software: decisões técnicas, arquitetura, times, liderança, tecnologia e o hábito do aprendizado contínuo.',
-			'Este é um espaço pessoal, calmo e duradouro para ideias que merecem mais do que uma leitura apressada.',
+			'Formado em Ciência da Computação, trabalho com desenvolvimento de software há mais de 20 anos. Passei a primeira metade da carreira escrevendo código, como desenvolvedor e arquiteto, e a segunda liderando times de engenharia. Atuei no ramo de seguros e no editorial, na maior editora da América Latina na época, e há mais de uma década estou no setor financeiro, em bancos, fintechs e meios de pagamento.',
+			'Com o tempo, vi que muitos problemas de entrega nascem antes do código. Nascem na estratégia do negócio, no que se decide priorizar e em como o trabalho chega ao time. Acredito em times com autonomia e em decisões apoiadas por dados.',
+			'Também levo qualidade muito a sério. Um bug gera atrito com o cliente e desgasta a marca, e para o time vira retrabalho. Quanto mais tarde aparece, mais caro fica, e em produção o custo é o maior de todos. Já vi na prática que times que planejam melhor geram menos bugs.',
+			'Gosto de continuar aprendendo. Pós-graduado em IA para desenvolvedores, hoje construo um aplicativo pessoal com o Claude Code, em que eu defino e reviso tudo e a IA escreve o código. Vejo a IA como um copiloto, que ajuda a ler os instrumentos e falar com a torre, enquanto a decisão continua com o piloto. E, nas horas livres, estudo francês.',
+			'Aqui escrevo sobre a prática de construir software, das decisões técnicas e da arquitetura aos times, à liderança e ao hábito do aprendizado contínuo, além de algumas reflexões pessoais. É um espaço calmo e duradouro para ideias que merecem mais do que uma leitura apressada.',
 		],
 	},
 };

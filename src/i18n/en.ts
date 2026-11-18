@@ -33,8 +33,11 @@ const en = {
 		lede: 'Leadership, software engineering, technology, and continuous learning.',
 		description: 'About Doug Costa',
 		paragraphs: [
-			'I write about the practice of building software: technical decisions, architecture, teams, leadership, technology, and the habit of continuous learning.',
-			'This is a personal, calm, and lasting space for ideas that deserve more than a rushed read.',
+			'A Computer Science graduate, I’ve been building software for more than 20 years. I spent the first half of my career writing code, as a developer and architect, and the second half leading engineering teams. I worked in insurance and in publishing, at what was then the largest publisher in Latin America, and for more than a decade I’ve been in the financial sector, working with banks, fintechs and payment companies.',
+			'Over time, I’ve seen that many delivery problems start before the code. They start in the business strategy, in what gets prioritized and in how work reaches the team. I believe in autonomous teams and in decisions backed by data.',
+			'I also take quality very seriously. A bug creates friction for customers and wears down the brand, and for the team it turns into rework. The later it shows up, the more it costs, and in production the cost is highest. I’ve seen in practice that teams that plan better ship fewer bugs.',
+			'I like to keep learning. With a postgraduate degree in AI for developers, I’m now building a personal app with Claude Code, where I define and review everything and the AI writes the code. I see AI as a copilot that helps read the instruments and talk to the tower, while the decisions stay with the pilot. And in my free time, I study French.',
+			'Here I write about the practice of building software, from technical decisions and architecture to teams, leadership and the habit of continuous learning, along with some personal reflections. It’s a calm and lasting space for ideas that deserve more than a rushed read.',
 		],
 	},
 };
